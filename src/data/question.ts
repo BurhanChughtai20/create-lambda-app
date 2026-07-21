@@ -35,11 +35,7 @@ export const DATABASE_QUESTION: PromptObject<"aws" | "database"> = {
   message: "Which database would you like to use?",
   type: "select" as const,
 
-  choices: [
-    {
-      title: "MongoDB",
-      value: "mongodb" satisfies DatabaseProvider,
-    },
+  choices: [ 
     {
       title: "DynamoDB",
       value: "dynamodb" satisfies DatabaseProvider,

@@ -17,11 +17,8 @@ const TEMPLATE_MAP: TemplateMap = {
     },
 
     database: {
-      mongodb: "templates/database/mongodb",
-
       dynamodb: "templates/database/dynamodb",
     },
- 
   },
 };
 

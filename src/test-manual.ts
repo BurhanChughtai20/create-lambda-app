@@ -9,7 +9,7 @@ console.log(normalizeAnswers({ aws: [], database: "none" }));
 // Expected: { aws: null, database: null }
 
 // Test 2: kuch select kiya hua
-console.log(normalizeAnswers({ aws: ["lambda", "logger"], database: "mongodb" }));
+console.log(normalizeAnswers({ aws: ["lambda", "logger"], database: "dynamodb" }));
 // Expected: { aws: { services: ["lambda", "logger"] }, database: { provider: "mongodb" } }
 
 // Test 3: mergeDeep — conflict wala case

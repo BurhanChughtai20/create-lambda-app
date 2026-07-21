@@ -13,7 +13,9 @@ export const copyDirectory = (
         const destinationPath = path.join(destination, entry.name);
 
         if (entry.isDirectory()) {
-            fs.mkdirSync(destinationPath);
+            fs.mkdirSync(destinationPath, {
+                recursive: true,
+            });
             copyDirectory(sourcePath, destinationPath);
         }
         else {

@@ -2,11 +2,10 @@ export type AwsService =
   | "lambda"
   | "logger"
   | "api-gateway"
-  | "secrets-manager" 
+  | "secrets-manager"
   | "dynamodb";
 
 export type DatabaseProvider =
-  | "mongodb"
   | "dynamodb";
 
 export interface TemplateMap {
@@ -15,6 +14,6 @@ export interface TemplateMap {
   features: {
     aws: Record<AwsService, string>;
 
-    database: Record<DatabaseProvider, string>; 
+    database: Record<DatabaseProvider, string>;
   };
 }

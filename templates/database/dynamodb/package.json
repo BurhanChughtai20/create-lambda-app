@@ -1,0 +1,11 @@
+{
+  "name": "dynamodb-template",
+  "private": true,
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1091.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.2"
+  }
+}

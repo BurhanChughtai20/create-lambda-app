@@ -1,7 +1,7 @@
 {
-  "name": "create-lambda-app",
+  "name": "create-aws-backend",
   "version": "1.0.0",
-  "description": "CLI to scaffold a Lambda-ready Node.js/Express project.",
+  "description": "CLI to scaffold your Express + TypeScript backend in seconds — the folder structure, the middleware and even the database configuration (for DynamoDB and soon more!) is set up automatically. No need to rebuild your backend setup for every project.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1091.0",
     "express": "^5.2.1",
     "prompts": "^2.4.2"
   },
@@ -26,5 +27,9 @@
     "@types/node": "^22.10.0",
     "@types/prompts": "^2.4.9",
     "typescript": "^5.7.0"
-  }
+  },
+  "files": [
+  "dist",
+  "templates"
+]
 }

@@ -19,35 +19,67 @@ type Step = {
   name: string;
   run: (ctx: Context) => Context;
 };
+ 
+const describeValidationFailures = (validation: ValidationResult): string[] => {
+  const failures: string[] = [];
+
+  if (!validation.hasPackageJson) {
+    failures.push("No package.json found in the target directory.");
+  }
+  if (!validation.hasExpress) {
+    failures.push("Express is not installed in this project.");
+  }
+  if (!validation.hasTypeScript) {
+    failures.push("TypeScript is not installed in this project.");
+  }
+  if (!validation.nodeVersionOk) {
+    failures.push("Installed Node.js version does not meet the minimum required version.");
+  }
+
+  return failures;
+};
 
 const steps: Step[] = [
-  {
+  { 
     name: "validateProject",
-    run: (ctx) => ({
-      ...ctx,
-      validation: validateProject(ctx.cwd),
-    }),
+    run: (ctx) => {
+      const validation = validateProject(ctx.cwd);
+      const failures = describeValidationFailures(validation);
+
+      if (failures.length > 0) {
+        throw new Error(`Project validation failed:\n- ${failures.join("\n- ")}`);
+      }
+
+      return { ...ctx, validation };
+    },
   },
+
   {
-    name: "collectTemplatePaths",
+     name: "collectTemplatePaths",
     run: (ctx) => ({
       ...ctx,
       templatePaths: collectTemplatePaths(ctx.answers),
     }),
   },
+
   {
-    name: "copyTemplates",
+     name: "copyTemplates",
     run: (ctx) => {
-      if (!ctx.templatePaths) {
-        throw new Error("templatePaths missing — collectTemplatePaths must run first.");
+      if (!ctx.templatePaths || ctx.templatePaths.length === 0) {
+        throw new Error(
+          "templatePaths missing or empty — collectTemplatePaths must run first and return at least one path."
+        );
       }
+
       for (const sourceDir of ctx.templatePaths) {
         copyDirectory(sourceDir, ctx.cwd);
       }
+
       return ctx;
     },
   },
-  {
+
+  { 
     name: "mergePackageJsons",
     run: (ctx) => {
       if (!ctx.templatePaths) {
@@ -67,6 +99,20 @@ const steps: Step[] = [
       return { ...ctx, finalPackageJson };
     },
   },
+
+  { 
+    name: "writePackageJson",
+    run: (ctx) => {
+      if (!ctx.finalPackageJson) {
+        throw new Error("finalPackageJson missing — mergePackageJsons must run first.");
+      }
+
+      const outputPath = path.join(ctx.cwd, "package.json");
+      fs.writeJsonSync(outputPath, ctx.finalPackageJson, { spaces: 2 });
+
+      return ctx;
+    },
+  },
 ];
 
 export const executePipeline = (initialContext: Context): Context => {
@@ -75,8 +121,9 @@ export const executePipeline = (initialContext: Context): Context => {
   for (const step of steps) {
     try {
       current = step.run(current);
-    } catch (err: any) {
-      throw new Error(`Pipeline failed at step "${step.name}": ${err.message}`);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      throw new Error(`Pipeline failed at step "${step.name}": ${message}`);
     }
   }
 
