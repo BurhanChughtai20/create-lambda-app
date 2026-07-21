@@ -1,11 +1,11 @@
-import { copyDirectory } from "../copy.directory/copy.directory";
-import { collectTemplatePaths } from "../template/template.mapping";
-import { validateProject } from "../validate/validation";
-import { mergeDeep } from "../merge/merge.package";
+import { copyDirectory } from "../copy.directory/copy.directory.ts";
+import { collectTemplatePaths } from "../template/template.mapping.ts";
+import { validateProject } from "../validate/validation.ts";
+import { mergeDeep } from "../merge/merge.package.ts";
 import fs from "fs-extra";
 import path from "node:path";
-import type { UserAnswers } from "../../types/answer.type";
-import type { ValidationResult } from "../../types/validation.type";
+import type { UserAnswers } from "../../types/answer.type.ts";
+import type { ValidationResult } from "../../types/validation.type.ts";
 
 interface Context {
   cwd: string;

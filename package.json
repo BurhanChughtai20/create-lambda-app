@@ -1,23 +1,30 @@
 {
   "name": "create-lambda-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "CLI to scaffold a Lambda-ready Node.js/Express project.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "create-lambda-app": "./dist/bin/create-lambda-app.js"
+  },
   "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/bin/create-lambda-app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "prompts": "^2.4.2"
   },
   "packageManager": "pnpm@11.15.1+sha512.81350b07e53c9538a02f1f2303b4290fa2d7be04e56e2a970c4cc4b417dc761de196edabd49d55c7dc9580db81007c44143e4e3d7e462b3000d23c255122d065",
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^26.1.1",
+    "@types/node": "^22.10.0",
     "@types/prompts": "^2.4.9",
-    "typescript": "^7.0.2"
+    "typescript": "^5.7.0"
   }
 }

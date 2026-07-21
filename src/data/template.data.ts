@@ -1,4 +1,4 @@
-import type { TemplateMap } from "../types/template.type";
+import type { TemplateMap } from "../types/template.type.ts";
 
 const TEMPLATE_MAP: TemplateMap = {
   base: "templates/base",

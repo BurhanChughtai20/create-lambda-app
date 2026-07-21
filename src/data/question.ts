@@ -1,5 +1,5 @@
-import type { PromptObject, PromptType, Choice } from "../types/prompt-question.type";
-import type { AwsService, DatabaseProvider } from "../types/template.type";
+import type { PromptObject, PromptType, Choice } from "../types/prompt-question.type.ts";
+import type { AwsService, DatabaseProvider } from "../types/template.type.ts";
 
 export const AWS_QUESTION: PromptObject<"aws" | "database"> = {
   name: "aws",

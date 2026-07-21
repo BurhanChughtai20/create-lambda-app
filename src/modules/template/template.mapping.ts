@@ -1,5 +1,5 @@
-import type { UserAnswers } from "../../types/answer.type";
-import TEMPLATE_MAP from "../../data/template.data";
+import type { UserAnswers } from "../../types/answer.type.ts";
+import TEMPLATE_MAP from "../../data/template.data.ts";
 
 export const collectTemplatePaths = (answers: UserAnswers): string[] => {
 
